@@ -1,0 +1,122 @@
+package co.yedam;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class UserDAO {
+	Statement stmt;
+	ResultSet rs;
+	PreparedStatement pstmt;
+	Connection conn;
+	String id, pw;
+	
+	// 로그인 중인 사용자의 id, pw을 DB에 저장
+	public void insertUser(String id, String pw) {
+		conn = DAO.getConn();
+		
+		try {
+			String sql = "INSERT INTO users VALUES(?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			pstmt.executeUpdate();
+			System.out.println("로그인 유저 저장 성공");
+		} catch (SQLException e) {
+			System.out.println("로그인 유저 저장 실패");
+		} finally {
+			try {
+				pstmt.close();
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	
+	// 접속중인 사용자의 id를 출력
+	public String selectLoginId() {
+		conn = DAO.getConn();
+		String connId = null;
+		
+		try {
+			stmt = conn.createStatement();
+			String sql = "SELECT id FROM users";
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				String id = rs.getString(1);
+				connId = id;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return connId;
+	}
+	
+	// 접속중인 사용자의 pw를 출력
+		public String selectLoginPw() {
+			conn = DAO.getConn();
+			String connPw = null;
+			
+			try {
+				stmt = conn.createStatement();
+				String sql = "SELECT pw FROM users";
+				rs = stmt.executeQuery(sql);
+				
+				while (rs.next()) {
+					String pw = rs.getString(1);
+					connPw = pw;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					stmt.close();
+					rs.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return connPw;
+		}
+	
+	// 로그아웃 또는 종료 시 DB에서 삭제
+	public void deleteLogoutId() {
+		conn = DAO.getConn();
+		
+		try {
+			stmt = conn.createStatement();
+			String sql = "DELETE FROM users";
+			stmt.executeUpdate(sql);
+			System.out.println("로그아웃한 유저를 유저데이터에서 삭제");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}	
+	
+	
+	
+	
+}

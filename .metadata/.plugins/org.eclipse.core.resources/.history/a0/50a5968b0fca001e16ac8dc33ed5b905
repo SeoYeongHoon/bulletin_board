@@ -1,0 +1,39 @@
+package co.yedam;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class SampleExe {
+
+	public static void main(String[] args) {
+		// Connection 객체 가져오기
+		Connection conn = DAO.getConn();
+
+		// 쿼리
+		String dept = "인사"; // SELECT * FROM employee WHERE department = '인사';
+		String sql = "SELECT * FROM employee WHERE department = ? AND emp_no = ? ";
+		// ?: 숫자열이면 숫자열 반환, 문자열이면 문자열 반환
+
+		// 쿼리 해석, 처리된 결과를 반환
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dept);
+			psmt.setInt(2, 101);
+			
+			psmt.setString(1, "개발");
+			ResultSet rs = psmt.executeQuery(); // 조회
+			System.out.println("사원번호     사원명");
+			System.out.println("===============");
+			while(rs.next()) {
+				System.out.println("사원번호: " + rs.getInt("emp_no") + 
+						" 사원명: " + rs.getString("emp_name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("===============");
+	}
+
+}

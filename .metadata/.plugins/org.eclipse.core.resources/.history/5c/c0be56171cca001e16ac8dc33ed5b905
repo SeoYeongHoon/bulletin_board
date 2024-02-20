@@ -1,0 +1,18 @@
+package co.yedam;
+
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class Employee {
+	private int empNo;
+	private String empName;
+	private String email;
+	private String phone;
+	private Date hireDate;
+	private int salary;
+	private String department;
+}

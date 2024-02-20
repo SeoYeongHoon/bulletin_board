@@ -1,0 +1,45 @@
+package co.yedam;
+
+import java.util.Scanner;
+
+public class MainApp {
+
+	boolean isContinue, isContinue2, isContinue3;
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		MainApp main = new MainApp();
+		Login login = new Login();
+
+		int menu = 0;
+		main.isContinue = true;
+
+		while (main.isContinue) {
+			System.out.println("==================  게시판(로그인)  ==================");
+			System.out.println("1. 로그인  2. 회원가입  3. 아이디찾기   4. 비밀번호찾기   9. 종료");
+			System.out.print("선택 >> ");
+			menu = sc.nextInt();
+			sc.nextLine();
+
+			switch (menu) {
+			case 1:
+				break;
+
+			case 2:
+				break;
+
+			case 3:
+				break;
+
+			case 4:
+				break;
+
+			case 9:
+				System.out.println("<<< 프로그램 종료 >>>");
+				main.isContinue = false;
+				break;
+			}
+		}
+	}
+
+}

@@ -1,0 +1,38 @@
+package co.yedam;
+
+public class MainApp {
+
+	boolean isContinue, isContinue2, isContinue3;
+	int select1;
+	String id, pw;
+	
+	public static void main(String[] args) {
+		MainApp main = new MainApp();
+		Login login = new Login();
+
+		int menu = 0;
+		main.isContinue = true;
+
+		while (main.isContinue) {
+			switch (menu) {
+			case 1:
+				break;
+
+			case 2:
+				break;
+
+			case 3:
+				break;
+
+			case 4:
+				break;
+
+			case 9:
+				System.out.println("<<< 프로그램 종료 >>>");
+				main.isContinue = false;
+				break;
+			}
+		}
+	}
+
+}

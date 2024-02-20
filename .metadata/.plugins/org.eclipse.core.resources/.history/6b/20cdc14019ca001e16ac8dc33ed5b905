@@ -1,0 +1,17 @@
+package co.yedam;
+
+import java.util.Scanner;
+
+// 사용자의 입출력 결과 반환
+public class EmpApp {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		boolean run = true;
+		int menu = 0;
+		
+		while (run) {
+			System.out.println("1.등록 2.목록 9.종료");
+			System.out.println("선택 >> ");
+		}
+	}
+}

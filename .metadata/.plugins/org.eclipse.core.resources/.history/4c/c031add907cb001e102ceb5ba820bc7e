@@ -1,0 +1,20 @@
+package co.yedam;
+
+import java.util.Scanner;
+
+//DAO들로부터 기능을 가져와 실질적인 프로세스 메소드를 구현하는 클래스
+public class User {
+	BoardDAO boardDAO = new BoardDAO();
+	LoginDAO loginDAO = new LoginDAO();
+	UserDAO userDAO = new UserDAO();
+	MainApp main = new MainApp();
+	Board board = new Board();
+	Scanner sc = new Scanner(System.in);
+	
+	// 회원 탈퇴
+	public void quit() {
+		String id = userDAO.selectLoginId();
+		String pw = userDAO.selectLoginPw();
+		System.out.print("본인 확인을 위한 비밀번호 입력 >> ");
+	}
+}

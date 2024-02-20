@@ -1,0 +1,6 @@
+package co.yedam;
+
+// 사용자의 입출력 결과 반환
+public class EmpApp {
+
+}

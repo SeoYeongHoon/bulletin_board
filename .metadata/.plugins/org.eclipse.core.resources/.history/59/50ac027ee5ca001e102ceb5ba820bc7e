@@ -1,0 +1,38 @@
+package co.yedam;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class UserDAO {
+	Statement stmt;
+	ResultSet rs;
+	PreparedStatement pstmt;
+	Connection conn;
+	String id, pw;
+	
+	public void insertUser(String id, String pw) {
+		conn = DAO.getConn();
+		
+		try {
+			String sql = "INSERT INTO users VALUES(?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			pstmt.executeUpdate();
+			System.out.println("로그인 유저 저장 성공");
+		} catch (SQLException e) {
+			System.out.println("로그인 유저 저장 실패");
+		} finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+}

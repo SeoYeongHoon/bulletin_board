@@ -1,0 +1,6 @@
+package co.yedam;
+
+// DB 연결 클래스
+public class DAO {
+
+}

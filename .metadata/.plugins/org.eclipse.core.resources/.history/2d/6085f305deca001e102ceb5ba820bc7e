@@ -1,0 +1,78 @@
+package co.yedam;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class LoginDAO {
+	Statement stmt;
+	ResultSet rs;
+	PreparedStatement pstmt;
+	MainApp main = new MainApp();
+	DAO dao;
+	
+	// 로그인 
+	public boolean loginSelect(String id, String pw) {
+		boolean success = false;
+		dao = new DAO();
+		dao.getConn();
+		
+		try {
+			stmt = dao.conn.createStatement();
+			String sql = "SELECT * FROM login WHERE id='" + id + "'";
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				// 비밀번호 맞을 시
+				if (pw.equals(rs.getString(2))) {
+					System.out.println("<<< 로그인 성공 >>>");
+					success = true;
+				} else {
+				// 비밀번호 틀릴 시
+					System.out.println("!!!! 비밀번호가 다릅니다 !!!!");
+				}
+			}
+		} catch (SQLException e) {
+			// 존재하지 않는 데이터
+			System.out.println("존재하지 않는 계정입니다.");
+		} finally {
+			try {
+				stmt.close();
+				rs.close();
+				dao.conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return success;
+	}
+	
+	
+	// 회원가입 시 id, pw를 DB에 저장
+	public void insert(String id, String pw, String name, String phone) {
+		dao = new DAO();
+		dao.getConn();
+		
+		try {
+			String sql = "INSERT INTO login VALUES(?, ?, ?, ?)";
+			pstmt = dao.conn.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			pstmt.setString(3, name);
+			pstmt.setString(4, phone);
+			pstmt.executeUpdate();
+			System.out.println("<<< 회원가입 성공 >>>");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				dao.conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}

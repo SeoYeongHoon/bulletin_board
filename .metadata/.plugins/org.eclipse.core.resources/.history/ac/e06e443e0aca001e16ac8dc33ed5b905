@@ -1,0 +1,8 @@
+package co.yedam;
+
+import java.sql.Connection;
+
+// Connection 객체: DB연결
+public class DAO {
+	public static Connection conn;
+}
